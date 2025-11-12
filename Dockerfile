@@ -9,6 +9,7 @@ WORKDIR /app
 # If these files don't change, Docker doesn't re-install node_modules
 COPY package*.json ./
 
+
 # Install dependencies, including dev dependencies (needed for NestJS build and Prisma generation)
 RUN npm install
 
@@ -43,7 +44,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 
 # Set working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy only the compiled application code and production dependencies
 
@@ -54,10 +55,13 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
 
+
 # 3. Copy the generated Prisma client code
 # The Prisma client is installed in node_modules, but this is a safeguard for specific setups
 COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
 
+
+COPY --from=builder /app/node_modules/.prisma /app/node_modules/.prisma
 # Expose the port your NestJS app listens on (default is usually 3000)
 EXPOSE 3000
 
@@ -67,4 +71,4 @@ ENV NODE_ENV=production
 ENV PORT=3000
 
 # Define the command to run the production application
-CMD [ "node", "dist/main" ]
+CMD [ "node", "dist/src/main" ]
