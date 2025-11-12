@@ -1,0 +1,45 @@
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma",
+  
+}
+
+
+
+// schema.prisma
+
+model NotificationAudit {
+  // Primary key, automatically generated UUID
+  id                 String   @id @default(uuid())
+
+  // The request_id from the incoming HTTP payload (used for tracking)
+  requestId          String   @unique
+
+  // User targeted by the notification
+  userId             String
+
+  // Type: 'email' or 'push'
+  notificationType   String
+
+  // Current status (QUEUED, SENT, FAILED, DELIVERED, etc.)
+  status             String   @default("QUEUED")
+
+  // Full JSON payload sent to the queue
+  payload            Json
+
+  // Timestamp when the client submitted the request
+  createdAt          DateTime @default(now())
+
+  // Timestamp when the status was last updated
+  updatedAt          DateTime @updatedAt
+
+  // Data about the final failure (optional)
+  failureReason      String?
+
+  @@map("notification_audits") // Sets the actual table name
+}

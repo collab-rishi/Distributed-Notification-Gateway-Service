@@ -1,0 +1,32 @@
+
+
+services:
+  rabbitmq:
+    # Use the specific tag for the latest stable version with the management plugin
+    image: rabbitmq:3-management 
+
+    container_name: rabbitmq
+    
+    # 🔑 IMPORTANT: Set the hostname for consistent node naming and data persistence
+    #hostname: rabbitmq_broker 
+    
+    ports:
+      # Standard AMQP port for NestJS Client Proxy connections
+      - "5672:5672" 
+      # Management UI port (http://localhost:15672)
+      - "15672:15672"
+      
+    environment:
+      # Set the default credentials for the broker
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+      
+    healthcheck:
+      # Use the recommended diagnostics command to check port connectivity
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      
+# Ensure the .env file in your NestJS project uses this URL: 
+# RABBITMQ_URL=amqp://user:password@localhost:5672
