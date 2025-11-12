@@ -94,6 +94,10 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/distributed-notification-gateway:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: | 
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            RABBITMQ_URL=${{ secrets.RABBITMQ_URL }}
+            API_KEY_SECRET=${{ secrets.API_KEY_SECRET }}
 
       - name: 5. Deploy to Staging (Placeholder)
         run: |

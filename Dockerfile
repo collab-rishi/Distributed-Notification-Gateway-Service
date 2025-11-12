@@ -12,19 +12,23 @@ COPY package*.json ./
 # Install dependencies, including dev dependencies (needed for NestJS build and Prisma generation)
 RUN npm install
 
+ARG DATABASE_URL
+
+ENV DATABASE_URL=$DATABASE_URL
+
 # Copy the rest of the source code
 COPY . .
 
 # CRITICAL: Generate the Prisma Client using the appropriate environment variables
 # These are passed via the 'build-args' in your ci.yml
-ARG DATABASE_URL
-ARG RABBITMQ_URL
-ARG API_KEY_SECRET
+
+#ARG RABBITMQ_URL
+#ARG API_KEY_SECRET
 
 # Set environment variables for the build process
-ENV DATABASE_URL=$DATABASE_URL
-ENV RABBITMQ_URL=$RABBITMQ_URL
-ENV API_KEY_SECRET=$API_KEY_SECRET
+
+#ENV RABBITMQ_URL=$RABBITMQ_URL
+#ENV API_KEY_SECRET=$API_KEY_SECRET
 
 
 RUN npx prisma generate
