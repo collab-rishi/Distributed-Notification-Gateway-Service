@@ -8,17 +8,15 @@ import { PrismaService } from './database/prisma.service';
 
 
 @Module({
-  imports: [
-   
-    ConfigModule.forRoot({
-      isGlobal: true, 
-    }),
-  DatabaseModule,
+  imports: [
+   
+    ConfigModule.forRoot({
+      isGlobal: true, 
+    }),
+    DatabaseModule,
     
-    
-    ClientsModule.registerAsync([
-     
-      {
+    
+    ClientsModule.registerAsync([      {
         name: EMAIL_SERVICE_RABBITMQ,
         useFactory: (configService: ConfigService) => ({
             transport: Transport.RMQ,

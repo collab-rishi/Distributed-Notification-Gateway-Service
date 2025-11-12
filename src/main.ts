@@ -41,7 +41,7 @@ async function bootstrap() {
   console.log('✅ All RabbitMQ clients connected successfully.');
 
   // --- STEP 3: Start HTTP Listener ---
-  await app.listen(3000);
+  await app.listen(8080);
   console.log(`🚀 API Gateway is running on: ${await app.getUrl()}`);
 }
 
