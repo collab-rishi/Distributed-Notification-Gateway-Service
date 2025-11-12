@@ -46,10 +46,16 @@ jobs:
 
       - name: 5. Generate Prisma Client
         run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       # NOTE: Assuming you have a standard NestJS build script defined in package.json
       - name: 6. Build application
-        run: npm run build 
+        run: npm run build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RABBITMQ_URL: ${{ secrets.RABBITMQ_URL }}  # <-- NEW
+          API_KEY_SECRET: ${{ secrets.API_KEY_SECRET }} # <-- NEW
       
       # NOTE: Uncomment this when you add unit and integration tests
       # - name: 6. Run Tests
