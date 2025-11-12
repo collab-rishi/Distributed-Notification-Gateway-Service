@@ -9,7 +9,15 @@ require('dotenv').config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  
+  // Enable CORS. Use CORS_ORIGIN env var in production to restrict origin.
+  const corsOrigin = process.env.CORS_ORIGIN || '*';
+  app.enableCors({
+    origin: corsOrigin,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true,
+  });
+
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe({ 
     transform: true, 
