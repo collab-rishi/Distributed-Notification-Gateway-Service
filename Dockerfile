@@ -70,5 +70,7 @@ EXPOSE 3000
 ENV NODE_ENV=production
 ENV PORT=3000
 
+RUN npx prisma generate
+
 # Define the command to run the production application
 CMD [ "node", "dist/src/main" ]
