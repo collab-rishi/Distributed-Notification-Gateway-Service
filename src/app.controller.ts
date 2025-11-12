@@ -32,6 +32,10 @@ export class AppController {
  ) {}
 
 
+getHello() {
+  return "hello";
+}
+
   @Get('health')
   @UseGuards()
   @HttpCode(HttpStatus.OK)
