@@ -4,8 +4,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { EMAIL_SERVICE_RABBITMQ, PUSH_SERVICE_RABBITMQ, FAILED_SERVICE_RABBITMQ } from './constants';
 import * as amqplib from 'amqplib'; 
-import { configDotenv } from 'dotenv';
-configDotenv();
+require('dotenv').config();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
