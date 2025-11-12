@@ -26,6 +26,8 @@ ENV DATABASE_URL=$DATABASE_URL
 ENV RABBITMQ_URL=$RABBITMQ_URL
 ENV API_KEY_SECRET=$API_KEY_SECRET
 
+
+RUN npx prisma generate
 # Run the NestJS build command (compiles TypeScript to JavaScript in 'dist/')
 # This step also executes 'npx prisma generate' if it's set up in package.json pre-build script, 
 # but we rely on the CI job's explicit 'prisma generate' step for robustness.
