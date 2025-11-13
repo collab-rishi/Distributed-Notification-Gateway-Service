@@ -1,5 +1,3 @@
-// src/auth.guard.ts
-
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config'; 
 
