@@ -4,6 +4,15 @@ import { IsDateString, IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsString, IsUUID,
 import { Type } from 'class-transformer';
 
 
+export interface PaginationMeta {
+    total: number;
+    limit: number;
+    page: number;
+    total_pages: number;
+    has_next: boolean;
+    has_previous: boolean;
+}
+
 export enum NotificationType {
     EMAIL = 'email',
     PUSH = 'push',
