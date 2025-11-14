@@ -47,16 +47,16 @@ const FAILED_QUEUE_NAME = 'failed.queue';
                 useFactory: (configService: ConfigService) => ({
                     transport: Transport.RMQ,
                     options: {
-                        urls: [configService.get<string>('RABBITMQ_URL', 'amqp://user:password@localhost:5672')],
+                        urls: [configService.get<string>('RABBITMQ_URL', 'amqp://nqdlzpvs:Tj5-G0boaSyrS1nZFM4aL9ElaiSeKTmW@chameleon.lmq.cloudamqp.com/nqdlzpvs')],
                         exchange: 'notifications.direct', 
                         exchangeOptions: {
                             type: 'direct', 
                             durable: true,
                             assert: true,
                         },
-                        // The routing key matches the event pattern used in the controller's client.emit()
+                       
                         routingKey: EMAIL_ROUTING_KEY, 
-                        // The queue name matches your desired physical queue identifier
+                        
                         queue: EMAIL_ROUTING_KEY, 
                         queueOptions: { 
                             durable: true,
@@ -71,16 +71,16 @@ const FAILED_QUEUE_NAME = 'failed.queue';
                 useFactory: (configService: ConfigService) => ({
                     transport: Transport.RMQ,
                     options: {
-                        urls: [configService.get<string>('RABBITMQ_URL', 'amqp://user:password@localhost:5672')],
+                        urls: [configService.get<string>('RABBITMQ_URL', 'amqp://nqdlzpvs:Tj5-G0boaSyrS1nZFM4aL9ElaiSeKTmW@chameleon.lmq.cloudamqp.com/nqdlzpvs')],
                         exchange: 'notifications.direct', 
                         exchangeOptions: {
                             type: 'direct', 
                             durable: true,
                             assert: true,
                         },
-                        // The routing key matches the event pattern used in the controller's client.emit()
+                        
                         routingKey: PUSH_ROUTING_KEY, 
-                        // The queue name matches your desired physical queue identifier
+                        
                         queue: PUSH_ROUTING_KEY, 
                         queueOptions: { 
                             durable: true,
@@ -95,7 +95,7 @@ const FAILED_QUEUE_NAME = 'failed.queue';
                 useFactory: (configService: ConfigService) => ({
                     transport: Transport.RMQ,
                     options: {
-                        urls: [configService.get<string>('RABBITMQ_URL', 'amqp://user:password@localhost:5672')],
+                        urls: [configService.get<string>('RABBITMQ_URL', 'amqp://nqdlzpvs:Tj5-G0boaSyrS1nZFM4aL9ElaiSeKTmW@chameleon.lmq.cloudamqp.com/nqdlzpvs')],
                         exchange: 'notifications.direct', 
                         exchangeOptions: {
                             type: 'direct', 
@@ -103,9 +103,9 @@ const FAILED_QUEUE_NAME = 'failed.queue';
                             assert: true,
 
                         },
-                        // The routing key matches the event pattern used in the controller's client.emit()
+                       
                         routingKey: FAILED_ROUTING_KEY, 
-                        // The queue name matches your desired physical queue identifier
+                       
                         queue: FAILED_QUEUE_NAME, 
                         queueOptions: { 
                             durable: true,
@@ -125,7 +125,7 @@ const FAILED_QUEUE_NAME = 'failed.queue';
         PrismaService, 
         UserService, 
         
-        // Global Guards: Applied in order
+        
         {
             provide: APP_GUARD,
             useClass: ThrottlerGuard, 

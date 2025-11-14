@@ -7,10 +7,10 @@ import * as amqplib from 'amqplib';
 
 
 async function bootstrap() {
-    // 1. Create the NestJS application instance
+  
     const app = await NestFactory.create(AppModule);
 
-    // 2. Configure CORS
+
     const corsOrigin = process.env.CORS_ORIGIN || '*';
     app.enableCors({
         origin: corsOrigin,
@@ -19,18 +19,16 @@ async function bootstrap() {
         credentials: true,
     });
 
-    // 3. Configure Global Settings
+    
     app.setGlobalPrefix('api/v1');
     app.useGlobalPipes(new ValidationPipe({ 
         transform: true, 
-        whitelist: true, // Strips non-whitelisted properties
-        forbidNonWhitelisted: true // Throws an error if non-whitelisted properties are sent
+        whitelist: true, 
+        forbidNonWhitelisted: true 
     }));
 
-    // --- 4. Ensure RabbitMQ Exchange Exists (Infrastructure Setup) ---
-    // This part is excellent: it guarantees the necessary exchange is present 
-    // before the application starts trying to send messages.
-    const rabbitUrl = process.env.RABBITMQ_URL || 'amqp://user:password@localhost:5672';
+    
+    const rabbitUrl = process.env.RABBITMQ_URL || 'amqp://nqdlzpvs:Tj5-G0boaSyrS1nZFM4aL9ElaiSeKTmW@chameleon.lmq.cloudamqp.com/nqdlzpvs';
     const EXCHANGE_NAME = 'notifications.direct';
 
     console.log(`--- Ensuring "${EXCHANGE_NAME}" exchange exists ---`);
@@ -44,11 +42,10 @@ async function bootstrap() {
     } catch (error) {
         console.error(`🚨 CRITICAL ERROR: Failed to connect to or assert RabbitMQ exchange. Check RABBITMQ_URL in .env.`);
         console.error(error);
-        process.exit(1); // Exit if infrastructure cannot be verified
+        process.exit(1); 
     }
 
-    // --- 5. Start HTTP Listener ---
-    // Removed the explicit client.connect() calls as NestJS manages this lifecycle
+   
     await app.listen(8080);
     console.log(`🚀 API Gateway is running on: ${await app.getUrl()}`);
 }
